@@ -30,8 +30,9 @@ RDEPEND="${DEPEND}
                 >=sys-apps/portage-2.1.1_pre1
                 app-text/ghostscript-gpl
                 amd64? (
-                        >=app-emulation/emul-linux-x86-gtklibs-2.0
-                        >=app-emulation/emul-linux-x86-baselibs-10.0-r1
+                        x11-libs/pangox-compat
+                        dev-libs/popt[abi_x86_32]
+                        dev-libs/libxml2[abi_x86_32]
                 )
                 !amd64? (
                         dev-libs/popt
@@ -144,19 +145,6 @@ src_install() {
         cd cngplp/files
         make install DESTDIR=${D}
         cd ../..
-
-        if use amd64; then
-                OABI=${ABI}
-                ABI="x86"
-                insinto /usr/lib32
-                i="libpopt.so.0.0.0"
-                [ ! -e ${FILESDIR}/${i} ] && die "You have to download libpopt.so.0.0.0 from http://bugs.gentoo.org/attachment.cgi?id=132734 and put it to ${FILESDIR} manually!"
-                dolib.so ${FILESDIR}/${i}
-                dosym ${i} /usr/lib32/${i%.?}
-                dosym ${i} /usr/lib32/${i%.?.?}
-                dosym ${i} /usr/lib32/${i%.?.?.?}
-                ABI=${OABI}
-        fi
 
         # Install the libs
         OABI=${ABI}
