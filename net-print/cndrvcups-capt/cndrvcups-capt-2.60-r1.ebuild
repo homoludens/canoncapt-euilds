@@ -69,11 +69,13 @@ pkg_postinst() {
         einfo "Now you can go ahead and start the ccpd daemon"
         einfo
         einfo "/etc/init.d/ccpd start"
-        if use amd64; then
-                ewarn
-                ewarn "The file /usr/lib32/libpopt.so.0.0.0 doesn't exist in any x86 package yet"
-                ewarn "The file comes from a Gentoo x86 machine"
-        fi
+        einfo
+        einfo
+        einfo "For more details and toubleshooting please see:"
+        einfo
+        einfo "https://wiki.gentoo.org/wiki/Canon_CAPT_Printer"
+        einfo
+        einfo
 }
 
 
