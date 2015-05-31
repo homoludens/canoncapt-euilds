@@ -69,6 +69,7 @@ pkg_postinst() {
         einfo
         einfo "/usr/sbin/ccpdadmin -p LBP3050 -o /dev/usb/lp0"
         einfo
+        einfo
         einfo "If you plan to use device /dev/usb/lp0 You will need to un-blacklist module usblp"
         einfo "this is best done by emergeing net-print/cups with USE='-usb' "
         einfo
@@ -79,6 +80,10 @@ pkg_postinst() {
         einfo "Now you can go ahead and start the ccpd daemon"
         einfo
         einfo "/etc/init.d/ccpd start"
+        einfo
+        einfo "For monitoring printer use Gui tool: "
+        einfo
+        einfo "/usr/sbin/captstatusui -p LBP3050"
         einfo
         einfo
         einfo "For more details and toubleshooting please see:"
