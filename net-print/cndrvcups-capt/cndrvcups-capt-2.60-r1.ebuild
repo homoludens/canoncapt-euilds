@@ -48,7 +48,7 @@ pkg_postinst() {
         einfo
         einfo "Now you can add your printer with either the webinterface or lpadmin"
         einfo
-        einfo "/usr/sbin/lpadmin -p LBP3010 -m CNCUPSLBP3050CAPTK.ppd -v ccp://localhost:59687 –E"
+        einfo "/usr/sbin/lpadmin -p LBP3010 -m CNCUPSLBP3050CAPTK.ppd -v ccp://localhost:59687 -E"
         einfo
         einfo "Replace 3050 with either on of the following printers:"
         einfo "1120 1210 2900 3000 3050 3200 3210 3300 5000"
