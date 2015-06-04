@@ -19,7 +19,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE="-cngplp"    # enable or disable cngplp compilation, may cause build break on ~amd64, don't really know if cngplp is ever needed
 RESTRICT=""
  
-DEPEND=">=net-print/cups-1.1.17"
+DEPEND=">=net-print/cups-1.1.17
+        >=x11-libs/gtk+-2.0.0
+        >=gnome-base/libglade-2.0.0"
+
 S=${WORKDIR}/${PN}-$(get_version_component_range 1-2)
  
 dir=/usr/$(get_libdir)
