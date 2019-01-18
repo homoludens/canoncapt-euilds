@@ -1,0 +1,11 @@
+--- Src/cndrvcups-common-3.21/cngplp/src/Makefile.am.orig	2017-04-07 05:33:23.000000000 +0200
++++ Src/cndrvcups-common-3.21/cngplp/src/Makefile.am	2019-01-17 23:39:32.873860379 +0100
+@@ -10,7 +10,7 @@
+         @PACKAGE_CFLAGS@\
+         @GLADE_PACKAGE_CFLAGS@
+ cngplp_SOURCES= main.c mainwnd.c mainwnd.h printerinfo.c printerinfo.h load.c load.h
+-cngplp_LDADD= -lglade-2.0  -lcups
++cngplp_LDADD= -lglade-2.0  -lcups -lgtk-x11-2.0 -lgobject-2.0 -lgmodule-2.0 -lglib-2.0
+ cngplp_LDFLAGS=-rpath $(libdir)
+ 
+ conf_DATA = cngplp.glade
