@@ -54,10 +54,52 @@ src_prepare() {
 
 src_compile() {
 		emake -j1 gen
+
+		cd c3plmod_ipc
+		emake -j1
 }
 
 src_install() {
 
 		emake -j1 DESTDIR="${D}" install
 		dodoc README LICENSE-EN.txt
+
+		cd c3plmod_ipc
+		emake -j1 DESTDIR="${D}" install LIBDIR=/usr/lib
+
+		cd ..
+		echo "TTTTTTTTTTT"
+		echo `pwd`
+
+		dobin    libs/c3pldrv
+		dolib.so libs/libcaiowrap.so.1.0.0
+		dolib.so libs/libcaiousb.so.1.0.0
+		dolib.so libs/libc3pl.so.0.0.1
+		dolib.so libs/libcaepcm.so.1.0
+		dolib.so libs/libColorGear.so.0.0.0
+		dolib.so libs/libColorGearC.so.0.0.0
+		dolib.so libs/libcanon_slim.so.1.0.0
+
+		dosym /usr/lib/libc3pl.so.0.0.1	/usr/lib/libc3pl.so.0
+		dosym /usr/lib/libc3pl.so.0.0.1	/usr/lib/libc3pl.so
+		dosym /usr/lib/libcaepcm.so.1.0	/usr/lib/libcaepcm.so.1
+		dosym /usr/lib/libcaepcm.so.1.0	/usr/lib/libcaepcm.so
+
+		dosym /usr/lib/libcaiowrap.so.1.0.0	/usr/lib/libcaiowrap.so.1
+		dosym /usr/lib/libcaiowrap.so.1.0.0	/usr/lib/libcaiowrap.so
+		dosym /usr/lib/libcaiousb.so.1.0.0	/usr/lib/libcaiousb.so.1
+		dosym /usr/lib/libcaiousb.so.1.0.0	/usr/lib/libcaiousb.so
+		dosym /usr/lib/libcanonc3pl.so.1.0.0	/usr/lib/libcanonc3pl.so.1
+		dosym /usr/lib/libcanonc3pl.so.1.0.0	/usr/lib/libcanonc3pl.so
+		dosym /usr/lib/libcanon_slim.so.1.0.0	/usr/lib/libcanon_slim.so.1
+		dosym /usr/lib/libcanon_slim.so.1.0.0	/usr/lib/libcanon_slim.so
+
+		dosym /usr/lib/libColorGear.so.0.0.0	/usr/lib/libColorGear.so.0
+		dosym /usr/lib/libColorGear.so.0.0.0	/usr/lib/libColorGear.so
+		dosym /usr/lib/libColorGearC.so.0.0.0	/usr/lib/libColorGearC.so.0
+		dosym /usr/lib/libColorGearC.so.0.0.0	/usr/lib/libColorGearC.so
+
+		dodir /usr/share/caepcm
+		insinto /usr/share/caepcm
+		doins -r data/*.ICC
 }
