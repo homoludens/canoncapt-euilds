@@ -67,10 +67,6 @@ src_install() {
 		cd c3plmod_ipc
 		emake -j1 DESTDIR="${D}" install LIBDIR=/usr/lib
 
-		cd ..
-		echo "TTTTTTTTTTT"
-		echo `pwd`
-
 		dobin    libs/c3pldrv
 		dolib.so libs/libcaiowrap.so.1.0.0
 		dolib.so libs/libcaiousb.so.1.0.0
