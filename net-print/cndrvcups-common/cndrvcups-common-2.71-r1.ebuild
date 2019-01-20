@@ -19,6 +19,14 @@ MY_PV="$(ver_rs 1- '')"
 SOURCES_NAME="linux-capt-drv-v${MY_PV}-uken"
 SRC_URI="http://gdlp01.c-wss.com/gds/6/0100004596/05/linux-capt-drv-v271-uken.tar.gz"
 
+
+DOCS="LICENSE-DE.txt LICENSE-EN.txt LICENSE-ES.txt LICENSE-FR.txt \
+        LICENSE-IT.txt LICENSE-JP.txt README \
+        backend/AUTHORS backend/ChangeLog backend/LICENSE.canon.txt \
+        backend/LICENSE.txt backend/NEWS"
+
+HTML_DOCS=../../Doc/guide-capt-2.7xUK
+
 DEPEND=">=net-print/cups-1.1.17
         >=x11-libs/gtk+-2.4.0
         >=gnome-base/libglade-2.4.0"
@@ -38,6 +46,9 @@ src_unpack() {
         cd "${WORKDIR}/linux-capt-drv-v271-uken/Src/"
         unpack ./cndrvcups-common-3.21-1.tar.gz
         cd "${WORKDIR}/linux-capt-drv-v271-uken/"
+
+        cd "${WORKDIR}/linux-capt-drv-v271-uken/Doc/"
+        unpack ./guide-capt-2.7xUK.tar.gz
 
 		S=${WORKDIR}/${SOURCES_NAME}
     fi
@@ -62,10 +73,12 @@ src_compile() {
 src_install() {
 
 		emake -j1 DESTDIR="${D}" install
-		dodoc README LICENSE-EN.txt
+
+		einstalldocs
 
 		cd c3plmod_ipc
 		emake -j1 DESTDIR="${D}" install LIBDIR=/usr/lib
+	    cd ..
 
 		dobin    libs/c3pldrv
 		dolib.so libs/libcaiowrap.so.1.0.0
@@ -81,10 +94,10 @@ src_install() {
 		dosym /usr/lib/libcaepcm.so.1.0	/usr/lib/libcaepcm.so.1
 		dosym /usr/lib/libcaepcm.so.1.0	/usr/lib/libcaepcm.so
 
-		dosym /usr/lib/libcaiowrap.so.1.0.0	/usr/lib/libcaiowrap.so.1
-		dosym /usr/lib/libcaiowrap.so.1.0.0	/usr/lib/libcaiowrap.so
-		dosym /usr/lib/libcaiousb.so.1.0.0	/usr/lib/libcaiousb.so.1
-		dosym /usr/lib/libcaiousb.so.1.0.0	/usr/lib/libcaiousb.so
+		dosym /usr/lib/libcaiowrap.so.1.0.0		/usr/lib/libcaiowrap.so.1
+		dosym /usr/lib/libcaiowrap.so.1.0.0		/usr/lib/libcaiowrap.so
+		dosym /usr/lib/libcaiousb.so.1.0.0		/usr/lib/libcaiousb.so.1
+		dosym /usr/lib/libcaiousb.so.1.0.0		/usr/lib/libcaiousb.so
 		dosym /usr/lib/libcanonc3pl.so.1.0.0	/usr/lib/libcanonc3pl.so.1
 		dosym /usr/lib/libcanonc3pl.so.1.0.0	/usr/lib/libcanonc3pl.so
 		dosym /usr/lib/libcanon_slim.so.1.0.0	/usr/lib/libcanon_slim.so.1
