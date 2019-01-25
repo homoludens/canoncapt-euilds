@@ -34,10 +34,6 @@ DEPEND=">=net-print/cups-1.1.17
 
 S=${WORKDIR}/${SOURCES_NAME}/Src/cndrvcups-common-3.21
 
-PATCHES=(
-	"${FILESDIR}/cndrvcups-common-3.21-fix-cngplp.patch"
-)
-
 
 src_unpack() {
 
@@ -56,7 +52,9 @@ src_unpack() {
 
 src_prepare() {
 
-	    eapply "${FILESDIR}"/cndrvcups-common-3.21-fix-cngplp.patch
+		sed -i -e 's-^cngplp_LDADD= \-lglade\-2.0  \-lcups$-cngplp_LDADD= \-lglade\-2.0  \-lcups \-lgtk\-x11\-2.0 \-lgobject\-2.0 \-lgmodule\-2.0 \-lglib\-2.0-' Src/cndrvcups-common-3.21/cngplp/src/Makefile.am || \
+			die 'sed failed'
+
 		eapply_user
 
 		S=${WORKDIR}/${SOURCES_NAME}/Src/cndrvcups-common-3.21
@@ -64,9 +62,16 @@ src_prepare() {
 
 
 src_compile() {
-		emake -j1 gen
+		#emake -j1 gen
 
-		cd c3plmod_ipc
+		cd cngplp; ./autogen.sh --prefix=/usr --libdir=/usr/$(get_libdir)
+		emake -j1
+		cd ../buftool; ./autogen.sh --prefix=/usr --libdir=/usr/$(get_libdir)
+		emake -j1
+		cd ../backend; ./autogen.sh --prefix=/usr --libdir=/usr/$(get_libdir)
+		emake -j1
+
+		cd ../c3plmod_ipc
 		emake -j1
 }
 
@@ -77,7 +82,7 @@ src_install() {
 		einstalldocs
 
 		cd c3plmod_ipc
-		emake -j1 DESTDIR="${D}" install LIBDIR=/usr/lib
+		emake -j1 DESTDIR="${D}" install LIBDIR=/usr/$(get_libdir)
 	    cd ..
 
 		dobin    libs/c3pldrv
@@ -89,24 +94,25 @@ src_install() {
 		dolib.so libs/libColorGearC.so.0.0.0
 		dolib.so libs/libcanon_slim.so.1.0.0
 
-		dosym /usr/lib/libc3pl.so.0.0.1	/usr/lib/libc3pl.so.0
-		dosym /usr/lib/libc3pl.so.0.0.1	/usr/lib/libc3pl.so
-		dosym /usr/lib/libcaepcm.so.1.0	/usr/lib/libcaepcm.so.1
-		dosym /usr/lib/libcaepcm.so.1.0	/usr/lib/libcaepcm.so
+		dosym /usr/$(get_libdir)/libc3pl.so.0.0.1 /usr/$(get_libdir)/libc3pl.so.0
+		dosym /usr/$(get_libdir)/libc3pl.so.0.0.1 /usr/$(get_libdir)/libc3pl.so
+		dosym /usr/$(get_libdir)/libcaepcm.so.1.0 /usr/$(get_libdir)/libcaepcm.so.1
+		dosym /usr/$(get_libdir)/libcaepcm.so.1.0 /usr/$(get_libdir)/libcaepcm.so
 
-		dosym /usr/lib/libcaiowrap.so.1.0.0		/usr/lib/libcaiowrap.so.1
-		dosym /usr/lib/libcaiowrap.so.1.0.0		/usr/lib/libcaiowrap.so
-		dosym /usr/lib/libcaiousb.so.1.0.0		/usr/lib/libcaiousb.so.1
-		dosym /usr/lib/libcaiousb.so.1.0.0		/usr/lib/libcaiousb.so
-		dosym /usr/lib/libcanonc3pl.so.1.0.0	/usr/lib/libcanonc3pl.so.1
-		dosym /usr/lib/libcanonc3pl.so.1.0.0	/usr/lib/libcanonc3pl.so
-		dosym /usr/lib/libcanon_slim.so.1.0.0	/usr/lib/libcanon_slim.so.1
-		dosym /usr/lib/libcanon_slim.so.1.0.0	/usr/lib/libcanon_slim.so
+		dosym /usr/$(get_libdir)/libcaiowrap.so.1.0.0 /usr/$(get_libdir)/libcaiowrap.so.1
+		dosym /usr/$(get_libdir)/libcaiowrap.so.1.0.0 /usr/$(get_libdir)/libcaiowrap.so
+		dosym /usr/$(get_libdir)/libcaiousb.so.1.0.0 /usr/$(get_libdir)/libcaiousb.so.1
+		dosym /usr/$(get_libdir)/libcaiousb.so.1.0.0 /usr/$(get_libdir)/libcaiousb.so
+		dosym /usr/$(get_libdir)/libcanonc3pl.so.1.0.0 /usr/$(get_libdir)/libcanonc3pl.so.1
+		dosym /usr/$(get_libdir)/libcanonc3pl.so.1.0.0 /usr/$(get_libdir)/libcanonc3pl.so
+		dosym /usr/$(get_libdir)/libcanon_slim.so.1.0.0 /usr/$(get_libdir)/libcanon_slim.so.1
+		dosym /usr/$(get_libdir)/libcanon_slim.so.1.0.0 /usr/$(get_libdir)/libcanon_slim.so
 
-		dosym /usr/lib/libColorGear.so.0.0.0	/usr/lib/libColorGear.so.0
-		dosym /usr/lib/libColorGear.so.0.0.0	/usr/lib/libColorGear.so
-		dosym /usr/lib/libColorGearC.so.0.0.0	/usr/lib/libColorGearC.so.0
-		dosym /usr/lib/libColorGearC.so.0.0.0	/usr/lib/libColorGearC.so
+		dosym /usr/$(get_libdir)/libColorGear.so.0.0.0 /usr/$(get_libdir)/libColorGear.so.0
+		dosym /usr/$(get_libdir)/libColorGear.so.0.0.0 /usr/$(get_libdir)/libColorGear.so
+		dosym /usr/$(get_libdir)/libColorGearC.so.0.0.0 /usr/$(get_libdir)/libColorGearC.so.0
+		dosym /usr/$(get_libdir)/libColorGearC.so.0.0.0 /usr/$(get_libdir)/libColorGearC.so
+
 
 		dodir /usr/share/caepcm
 		insinto /usr/share/caepcm
