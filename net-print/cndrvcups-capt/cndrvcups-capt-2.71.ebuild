@@ -217,13 +217,6 @@ src_install() {
 		dobin libs/ccpd libs/ccpdadmin
 	fi
 
-
-
-
-
-
-
-
         # Install the data
         insinto /usr/share/ccpd
         doins libs/ccpddata/*
@@ -249,8 +242,7 @@ src_install() {
         # Install doc
         dodoc LICENSE* README* COPYING
 
-#driver ppd backend pstocapt pstocapt2 pstocapt3 statusui cngplp
-        for i in statusui driver backend pstocapt{,2,3} ppd; do
+        for i in statusui driver backend pstocapt{,2,3} ppd cngplp; do
                 docinto ${i}
                 dodoc ${i}/NEWS ${i}/README ${i}/AUTHORS ${i}/ChangeLog ${i}/LICENSE*
         done
