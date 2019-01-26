@@ -20,9 +20,7 @@ SOURCES_NAME="linux-capt-drv-v${MY_PV}-uken"
 
 
 DOCS="LICENSE-DE.txt LICENSE-EN.txt LICENSE-ES.txt LICENSE-FR.txt \
-        LICENSE-IT.txt LICENSE-JP.txt README \
-        backend/AUTHORS backend/ChangeLog backend/LICENSE.canon.txt \
-        backend/LICENSE.txt backend/NEWS"
+        LICENSE-IT.txt LICENSE-JP.txt README"
 
 HTML_DOCS=../../Doc/guide-capt-2.7xUK
 
@@ -49,27 +47,26 @@ src_unpack() {
     fi
 }
 
-src_prepare() {
-
-		sed -i -e 's-^cngplp_LDADD= \-lglade\-2.0  \-lcups$-cngplp_LDADD= \-lglade\-2.0  \-lcups \-lgtk\-x11\-2.0 \-lgobject\-2.0 \-lgmodule\-2.0 \-lglib\-2.0-' Src/cndrvcups-common-3.21/cngplp/src/Makefile.am || \
-			die 'sed failed'
-
-		eapply_user
-
-		S=${WORKDIR}/${SOURCES_NAME}/Src/cndrvcups-common-3.21
-}
-
 
 src_compile() {
-		#emake -j1 gen
 
-		cd cngplp; ./autogen.sh --prefix=/usr --libdir=/usr/$(get_libdir)
+		S=${WORKDIR}/${SOURCES_NAME}/Src/cndrvcups-common-3.21
+
+		cd Src/cndrvcups-common-3.21
+
+		einfo "Configuring: cngplp"
+		cd cngplp; LIBS='-lgmodule-2.0 -lgtk-x11-2.0 -lglib-2.0 -lgobject-2.0'  ./autogen.sh --prefix=/usr --libdir=/usr/$(get_libdir)
 		emake -j1
+
+		einfo "Configuring: buftool"
 		cd ../buftool; ./autogen.sh --prefix=/usr --libdir=/usr/$(get_libdir)
 		emake -j1
+
+		einfo "Configuring: backend"
 		cd ../backend; ./autogen.sh --prefix=/usr --libdir=/usr/$(get_libdir)
 		emake -j1
 
+		einfo "Configuring: c3plmod_ipc"
 		cd ../c3plmod_ipc
 		emake -j1
 }
@@ -77,6 +74,12 @@ src_compile() {
 src_install() {
 
 		emake -j1 DESTDIR="${D}" install
+
+
+		for i in cngplp buftool backend backend c3plmod_ipc; do
+                docinto ${i}
+                dodoc ${i}/NEWS ${i}/README ${i}/AUTHORS ${i}/ChangeLog ${i}/LICENSE*
+        done
 
 		einstalldocs
 
