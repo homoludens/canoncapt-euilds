@@ -17,7 +17,6 @@ MY_P=${P/_p/-}-1
 
 MY_PV="$(ver_rs 1- '')"
 SOURCES_NAME="linux-capt-drv-v${MY_PV}-uken"
-SRC_URI="http://gdlp01.c-wss.com/gds/6/0100004596/05/linux-capt-drv-v271-uken.tar.gz"
 
 
 DOCS="LICENSE-DE.txt LICENSE-EN.txt LICENSE-ES.txt LICENSE-FR.txt \
