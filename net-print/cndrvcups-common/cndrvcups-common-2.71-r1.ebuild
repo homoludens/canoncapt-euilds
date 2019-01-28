@@ -20,13 +20,13 @@ SOURCES_NAME="linux-capt-drv-v${MY_PV}-uken"
 
 
 DOCS="LICENSE-DE.txt LICENSE-EN.txt LICENSE-ES.txt LICENSE-FR.txt \
-        LICENSE-IT.txt LICENSE-JP.txt README"
+		LICENSE-IT.txt LICENSE-JP.txt README"
 
 HTML_DOCS=../../Doc/guide-capt-2.7xUK
 
 DEPEND=">=net-print/cups-1.1.17
-        >=x11-libs/gtk+-2.4.0
-        >=gnome-base/libglade-2.4.0"
+		>=x11-libs/gtk+-2.4.0
+		>=gnome-base/libglade-2.4.0"
 
 
 S=${WORKDIR}/${SOURCES_NAME}/Src/cndrvcups-common-3.21
