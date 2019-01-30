@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name>zyrenth</name>
+    <description lang="en">Homoludens personal overlay</description>
+    <homepage>https://github.com/homoludens/canoncapt-euilds</homepage>
+    <owner type="person">
+      <email>homoludens79@yahoo.com</email>
+      <name>Marko Djordjevic</name>
+    </owner>
+    <source type="git">https://github.com/homoludens/canoncapt-euilds.git</source>
+    <source type="git">git://github.com/homoludens/canoncapt-euilds.git</source>
+    <source type="git">git@github.com:homoludens/canoncapt-euilds.git</source>
+    <feed>https://github.com/homoludens/canoncapt-euilds/commits/master.atom</feed>
+  </repo>
+</repositories>
