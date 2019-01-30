@@ -4,7 +4,7 @@
 # $Header: $
 
 depend() {
-	use cupsd
+	need cupsd
 }
 
 start() {
