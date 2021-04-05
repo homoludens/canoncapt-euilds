@@ -1,4 +1,11 @@
-#Ebuilds for Canon CAPT printers
+# Deprecated
+
+This ebuilds are not working since Canon has not released new drivers since 2017 and this one is not possible to build with newer tools and libraries.
+
+There are some open source community efforts here https://github.com/agalakhov/captdriver/ for LBP-2900 and LBP-3000 and here https://github.com/ra1nst0rm3d/captdriver for LPB-1120, other printers might be supported too.
+
+
+# Ebuilds for Canon CAPT printers
 
 For more information and detailed instructions go here:  
 https://wiki.gentoo.org/wiki/Canon_CAPT_Printer
